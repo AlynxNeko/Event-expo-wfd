@@ -30,7 +30,7 @@ $time = Carbon::parse($event->start_time)->format('h:i A');
 $formattedDateTime = $date . ' - ' . $time;
 ?>
 @section('content')
-    {{$event}}
+    <!-- {{$event}} -->
      
     <div class="container" >
         <h3>Expo</h3>

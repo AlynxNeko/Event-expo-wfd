@@ -19,5 +19,9 @@ class DatabaseSeeder extends Seeder
             'name' => 'Test User',
             'email' => 'test@example.com',
         ]);
+        
+        $this->call(EventCategorySeeder::class);
+        $this->call(OrganizerSeeder::class);
+        $this->call(EventSeeder::class);
     }
 }

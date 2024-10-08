@@ -15,7 +15,7 @@ class OrganizerSeeder extends Seeder
     public function run(): void
     {
         for ($i=0; $i < 5; $i++) { 
-            DB::table('events')->insert([
+            DB::table('organizers')->insert([
                 'name' => fake()->company(),
                 'description' => fake()->text(),
                 'facebook_link' => 'http://m.facebook.com/dummy',

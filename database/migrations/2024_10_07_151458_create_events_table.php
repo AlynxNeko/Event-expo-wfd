@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreign('organizer_id')->references('id')->on('organizers')->onDelete('cascade');
             $table->bigInteger('event_category_id')->unsigned();
             $table->foreign('event_category_id')->references('id')->on('event_categories')->onDelete('cascade');
+            $table->integer('active')->default(1);
             $table->timestamps();
         });
     }

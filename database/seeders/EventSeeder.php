@@ -18,7 +18,7 @@ class EventSeeder extends Seeder
             'title' => 'Indonesia Innovation Challenge 2024 Powered by Launch Pad',
             'venue' => 'Jatim Expo',
             'date' => Carbon::create(2024, 10, 23)->format('Y-m-d'),
-            'start_time' => Carbon::createFromTime(9, 0, second: 0)->format('H-i-s'),
+            'start_time' => Carbon::createFromTime(9, 0, 0)->format('H:i:s'),
             'description' => fake()->text(),
             'booking_url' => 'https://www.indonesiaexpo.com/booking',
             'tags' => json_encode(['Surabaya Science & Tech Events', 'Innovation Challenge', 'tag3']), // Example JSON data
@@ -31,7 +31,7 @@ class EventSeeder extends Seeder
             'title' => 'Kids Education Expo 2024',
             'venue' => 'The Westin',
             'date' => Carbon::create(2024, 10, 21)->format('Y-m-d'),
-            'start_time' => Carbon::createFromTime(9, 0, second: 0)->format('H-i-s'),
+            'start_time' => Carbon::createFromTime(9, 0, second: 0)->format('H:i:s'),
             'description' => fake()->text(),
             'tags' => json_encode(['tag1', 'tag2', 'tag3']), // Example JSON data
             'organizer_id' => 2,
@@ -43,7 +43,7 @@ class EventSeeder extends Seeder
             'title' => 'Surabaya Great Expo 2024',
             'venue' => 'Grand City Surabaya',
             'date' => Carbon::create(2024, 10, 16)->format('Y-m-d'),
-            'start_time' => Carbon::createFromTime(8, 0, second: 0)->format('H-i-s'),
+            'start_time' => Carbon::createFromTime(8, 0, second: 0)->format('H:i:s'),
             'description' => fake()->text(),
             'tags' => json_encode(['tag1', 'tag2', 'tag3']), // Example JSON data
             'organizer_id' => 3,
@@ -55,7 +55,7 @@ class EventSeeder extends Seeder
             'title' => 'SMEX(Surabaya Music, Multimedia, and Lighting Expo 2024)',
             'venue' => 'Grand City Surabaya',
             'date' => Carbon::create(2024, 9, 29)->format('Y-m-d'),
-            'start_time' => Carbon::createFromTime(8, 0, second: 0)->format('H-i-s'),
+            'start_time' => Carbon::createFromTime(8, 0, second: 0)->format('H:i:s'),
             'description' => fake()->text(),
             'tags' => json_encode(['tag1', 'tag2', 'tag3']), // Example JSON data
             'organizer_id' => 4,
@@ -67,7 +67,7 @@ class EventSeeder extends Seeder
             'title' => 'Japan Edu Expo 2024',
             'venue' => 'Hotel Said',
             'date' => Carbon::create(2024, 9, 22)->format('Y-m-d'),
-            'start_time' => Carbon::createFromTime(8, 0, second: 0)->format('H-i-s'),
+            'start_time' => Carbon::createFromTime(8, 0, second: 0)->format('H:i:s'),
             'description' => fake()->text(),
             'tags' => json_encode(['tag1', 'tag2', 'tag3']), // Example JSON data
             'organizer_id' => 5,
@@ -79,7 +79,7 @@ class EventSeeder extends Seeder
             'title' => 'Surabaya Hospital Expo 2024',
             'venue' => 'Grand City, Surabaya',
             'date' => Carbon::create(2024, 10, 7)->format('Y-m-d'),
-            'start_time' => Carbon::createFromTime(12, 0, second: 0)->format('H-i-s'),
+            'start_time' => Carbon::createFromTime(12, 0, second: 0)->format('H:i:s'),
             'description' => fake()->text(),
             'tags' => json_encode(['tag1', 'tag2', 'tag3']), // Example JSON data
             'organizer_id' => 1,

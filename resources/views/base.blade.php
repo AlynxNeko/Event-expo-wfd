@@ -20,12 +20,12 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="#">Master Event Category</a></li>
-              <li><a class="dropdown-item" href="#">Master Organizer</a></li>
-              <li><a class="dropdown-item" href="#">Master Event</a></li>
+              <li><a class="dropdown-item" href="{{ route('organizers.index') }}">Master Organizer</a></li>
+              <li><a class="dropdown-item" href="#" >Master Event</a></li>
             </ul>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Events</a>
+            <a class="nav-link" href="{{ route('events.index') }}" >Events</a>
           </li>
         </ul>
       </div>

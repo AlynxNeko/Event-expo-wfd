@@ -3,12 +3,25 @@
 @section('library-css')
 <link rel = "stylesheet" href = "https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 <style>
-.tags{
-        background-color: black;
-        border-radius: 50px;
+    .tags{
+            background-color: black;
+            border-radius: 50px;
+            padding: 2px 10px;
+            color: white;
+            margin: 2px 2px;
+    }
+    .button {
+        background-color: white;
+        border-radius: 10px;
         padding: 2px 10px;
-        color: white;
-        margin: 2px 2px;
+        color: black;
+        outline: 1px black solid;
+        width: 120px;
+        text-decoration: none;
+    }
+    .button:hover{
+        cursor: pointer;   
+        color: black;
     }
 </style>
 @endsection
@@ -20,7 +33,7 @@
     <div class="row" style="align-items:center">
         <h1 class="col-2">Events</h1>
         <div class="col-2">
-            <button>+ Create</button>
+            <a class="button" href="{{ route('eventsMaster.create') }}">+ Create</a>
         </div>
     </div>
     <div class="row mx-auto" style="width: fit-content;">

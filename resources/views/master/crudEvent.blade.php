@@ -4,21 +4,21 @@
 <link rel = "stylesheet" href = "https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 <link rel = "stylesheet" href = "https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.css">
 <style>
-    #tags{
+    .tags .bootstrap-tagsinput .tag {
         background-color: black;
         border-radius: 50px;
         padding: 2px 10px;
         color: white;
     }
+
 </style>
 @endsection
 
 @section('content')
-    <!-- {{$event}} -->
      
     <div class="container" >
     <h1>{{ isset($event) ? 'Edit Event' : 'Add Event' }}</h1>
-    <form  action = "{{ isset($event) ? route('events.update', ['event'=> $event->id]) : route('events.store') }}"
+    <form  action = "{{ isset($event) ? route('eventsMaster.update', ['event'=> $event->id]) : route('eventsMaster.store') }}"
         method = "POST">
         @csrf
         @if (isset($event))
@@ -64,6 +64,7 @@
                     <div class="text-danger">{{ $errors->first('organizer_id') }}</div>
                 @endif
                 <select name = "organizer_id" class="form-control">
+                    <option value="" selected disabled hidden>-- Choose here --</option>
                     @foreach ($organizers as $organizer)
                         <option {{(isset($event) && ($event->organizer_id == $organizer->id))? 'selected': ''}} value="{{ $organizer->id }}">{{ $organizer->name }}</option>
                     @endforeach
@@ -75,6 +76,7 @@
                     <div class="text-danger">{{ $errors->first('event_category_id') }}</div>
                 @endif
                 <select name = "event_category_id" class="form-control">
+                    <option value="" selected disabled hidden>-- Choose here --</option>
                     @foreach ($categories as $category)
                         <option {{(isset($event) && ($event->event_category_id == $category->id))? 'selected': ''}} value="{{ $category->id }}">{{ $category->name }}</option>
                     @endforeach
@@ -93,16 +95,11 @@
             @if ($errors->has('tags'))
                 <div class="text-danger">{{ $errors->first('tags') }}</div>
             @endif
-            
             <div class="row">
-                <input class ='tags' type="text" value="
-            @foreach($event->tags as $tag)
-                ,{{ $tag }}
-            @endforeach
-            " data-role="tagsinput" readonly/>
-                </div>
-           
-            
+                <input class="tags" type="text" 
+                    value="{{ isset($event) ? implode(',', $event->tags) : '' }}" 
+                    data-role="tagsinput" />
+            </div>
         </div>
         <div class="form-group">
             <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">About</label>
@@ -122,5 +119,31 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type='text/javascript' src="https://cdn.datatables.net/2.1.8/js/dataTables.min.js"></script>
 <script src = "https://cdn.jsdelivr.net/bootstrap.tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+<script>
+    $(document).ready(function() {
+            $('#myTable').DataTable({
+                'order':[]
+        });
 
+        function removeHTMLTags(htmlString) {
+            // Create a new DOMParser instance
+            const parser = new DOMParser();
+            // Parse the HTML string
+            const doc = parser.parseFromString(htmlString, 'text/html');
+            // Extract text content
+            const textContent = doc.body.textContent || "";
+            // Trim whitespace
+            return textContent.trim();
+        }
+        $(".description").each(function(){
+            $(this).html(removeHTMLTags($(this).html()));
+        });
+
+        
+        });
+</script>
+@endsection
+
+@section('footer')
+    @vite('resources/js/tinymce.js')
 @endsection

@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\EventCategoryController;
 use App\Http\Controllers\OrganizerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\EventMasterController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -12,5 +14,7 @@ Route::get('/', function () {
 //  Events Route
 Route::resource('events', EventController::class);
 Route::resource('organizers', OrganizerController::class);
+Route::resource('eventsMaster', EventMasterController::class);
+Route::resource('categories', EventCategoryController::class);
 // Route::get('events/organizer', [EventController::class, 'organizer'])->name('events.organizer');
 

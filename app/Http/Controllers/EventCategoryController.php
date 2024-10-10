@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Organizer;
+use App\Models\EventCategory;
 use Illuminate\Http\Request;
 
-class OrganizerController extends Controller
+class EventCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $organizers = Organizer::orderBy('created_at', 'desc')->get();
-        return view ('master.organizer', ['organizers'=> $organizers]);
-    
+        $categories = EventCategory::orderBy('created_at', 'desc')->get();
+        return view ('master.category', ['categories'=> $categories]);
     }
 
     /**
@@ -38,8 +37,8 @@ class OrganizerController extends Controller
      */
     public function show(string $id)
     {
-        $organizer = Organizer::find($id);
-        return view('master.detailOrganizer', compact('organizer'));
+        $category = EventCategory::find($id);
+        return view('master.detailCategory', compact('category'));
     }
 
     /**

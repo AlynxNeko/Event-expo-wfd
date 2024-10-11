@@ -22,7 +22,7 @@ class OrganizerController extends Controller
      */
     public function create()
     {
-        //
+        return view('master.crudOrganizer');
     }
 
     /**
@@ -30,7 +30,16 @@ class OrganizerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'facebook_link' => 'nullable|url',
+            'x_link' => 'nullable|url',
+            'website_link' => 'nullable|url',
+        ]);
+
+        Organizer::create($request->all());
+        return redirect()->route('organizers.index')->with('success', 'Organizer created successfully.');
     }
 
     /**
@@ -47,7 +56,8 @@ class OrganizerController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $organizer = Organizer::findOrFail($id);
+        return view('master.crudOrganizer', compact('organizer'));
     }
 
     /**
@@ -55,14 +65,26 @@ class OrganizerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            'facebook_link' => 'nullable|url',
+            'x_link' => 'nullable|url',
+            'website_link' => 'nullable|url',
+        ]);
+
+        $organizer = Organizer::findOrFail($id);
+        $organizer->update($request->all());
+        return redirect()->route('organizers.index')->with('success', 'Organizer updated successfully.');
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Remove the specified organizer from storage.
      */
     public function destroy(string $id)
     {
-        //
+        $organizer = Organizer::findOrFail($id);
+        $organizer->delete();
+        return redirect()->route('organizers.index')->with('success', 'Organizer deleted successfully.');
     }
 }

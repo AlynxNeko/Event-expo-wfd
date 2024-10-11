@@ -21,7 +21,7 @@ class EventCategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('master.crudCategory');
     }
 
     /**
@@ -29,7 +29,12 @@ class EventCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        EventCategory::create($request->all());
+        return redirect()->route('eventCategories.index')->with('success', 'Event category created successfully.');
     }
 
     /**
@@ -46,7 +51,8 @@ class EventCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $eventCategory = EventCategory::findOrFail($id);
+        return view('eventCategory.edit', compact('eventCategory'));
     }
 
     /**
@@ -65,3 +71,87 @@ class EventCategoryController extends Controller
         //
     }
 }
+
+
+
+// <?php
+
+// namespace App\Http\Controllers;
+
+// use App\Models\EventCategory;
+// use Illuminate\Http\Request;
+
+// class EventCategoryController extends Controller
+// {
+//     /**
+//      * Display a listing of the event categories.
+//      */
+//     public function index()
+//     {
+//         $eventCategories = EventCategory::orderBy('name')->get();
+//         return view('eventCategory.index', ['eventCategories' => $eventCategories]);
+//     }
+
+//     /**
+//      * Show the form for creating a new event category.
+//      */
+//     public function create()
+//     {
+//         return view('eventCategory.create');
+//     }
+
+//     /**
+//      * Store a newly created event category in storage.
+//      */
+//     public function store(Request $request)
+//     {
+//         $request->validate([
+//             'name' => 'required|string|max:255',
+//         ]);
+
+//         EventCategory::create($request->all());
+//         return redirect()->route('eventCategories.index')->with('success', 'Event category created successfully.');
+//     }
+
+//     /**
+//      * Display the specified event category.
+//      */
+//     public function show(string $id)
+//     {
+//         $eventCategory = EventCategory::findOrFail($id);
+//         return view('eventCategory.detail', compact('eventCategory'));
+//     }
+
+//     /**
+//      * Show the form for editing the specified event category.
+//      */
+//     public function edit(string $id)
+//     {
+//         $eventCategory = EventCategory::findOrFail($id);
+//         return view('eventCategory.edit', compact('eventCategory'));
+//     }
+
+//     /**
+//      * Update the specified event category in storage.
+//      */
+//     public function update(Request $request, string $id)
+//     {
+//         $request->validate([
+//             'name' => 'required|string|max:255',
+//         ]);
+
+//         $eventCategory = EventCategory::findOrFail($id);
+//         $eventCategory->update($request->all());
+//         return redirect()->route('eventCategories.index')->with('success', 'Event category updated successfully.');
+//     }
+
+//     /**
+//      * Remove the specified event category from storage.
+//      */
+//     public function destroy(string $id)
+//     {
+//         $eventCategory = EventCategory::findOrFail($id);
+//         $eventCategory->delete();
+//         return redirect()->route('eventCategories.index')->with('success', 'Event category deleted successfully.');
+//     }
+// }

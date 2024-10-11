@@ -144,6 +144,8 @@ class EventMasterController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $organizer = Event::findOrFail($id);
+        $organizer->delete();
+        return redirect()->route('eventMaster.index')->with('success', 'Event deleted successfully.');
     }
 }

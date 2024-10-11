@@ -66,7 +66,7 @@
                     </button>
                 @endforeach
                 </td>
-                <td><a href="{{ route('eventsMaster.edit', $event->id) }}" style="color: black; text-decoration: none;">edit</a>, trash</td>
+                <td><x-edit-button url="{{route('eventsMaster.edit', $event->id)}}" /> trash</td>
             </tr>
             @endforeach
         </tbody>

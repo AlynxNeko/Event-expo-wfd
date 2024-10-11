@@ -50,7 +50,7 @@ class EventMasterController extends Controller
         if (!$event) {
             FacadesSession::flash('message', 'Artikel gagal di tambahkan !');
             FacadesSession::flash('alert-class', 'failed');
-            return redirect()->route('articles.index');
+            return redirect()->route('eventsMaster.index');
         }
         // Convert the tags into an array (if it's a string of comma-separated tags)
         $tagsArray = explode(',', $request->tags);
@@ -71,7 +71,7 @@ class EventMasterController extends Controller
 
         FacadesSession::flash('message', 'Event berhasil di tambahkan !');
         FacadesSession::flash('alert-class', 'success');
-        return redirect()->route('events.index');
+        return redirect()->route('eventsMaster.index');
     }
 
     /**
@@ -90,7 +90,10 @@ class EventMasterController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $event = Event::find($id);
+        $organizers = Organizer::where('active', 1)->orderBy('created_at', 'desc')->get();
+        $categories = EventCategory::where('active', 1)->orderBy('created_at', 'desc')->get();
+        return view('master.crudEvent', ['organizers'=> $organizers, 'event'=>$event, 'categories'=>$categories]);
     }
 
     /**
@@ -98,7 +101,42 @@ class EventMasterController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $event = $request->validate([
+            'title' => 'required|max:255',
+            'venue' => 'required|max:255',
+            'date' => 'required|date_format:Y-m-d',
+            'start_time' => 'required|date_format:H:i',
+            'description'=>'required',
+            'booking_url'=>'url|nullable',
+            'tags'=>'required',
+            'organizer_id' =>'required|exists:organizers,id',
+            'event_category_id' =>'required|exists:event_categories,id',
+        ]);
+
+        if (!$event) {
+            FacadesSession::flash('message', 'Artikel gagal di tambahkan !');
+            FacadesSession::flash('alert-class', 'failed');
+            return redirect()->route('eventsMaster.index');
+        }
+        
+        $tagsArray = explode(',', $request->tags);
+
+        Event::query()->where('id', $id)->update([
+            'title' => $request->title,
+            'venue' => $request->venue,
+            'date' => $request->date,
+            'start_time' => $request->start_time,
+            'description' => $request->description,
+            'booking_url' => $request->booking_url? $request->booking_url : null,
+            'tags' => $tagsArray,
+            'organizer_id' => $request->organizer_id,
+            'event_category_id' => $request->event_category_id,
+            'updated_at' => Carbon::now()->format('Y-m-d H:i:s')
+        ]);
+
+        FacadesSession::flash('message', 'Event berhasil diupdate !');
+        FacadesSession::flash('alert-class', 'success');
+        return redirect()->route('eventsMaster.index');
     }
 
     /**

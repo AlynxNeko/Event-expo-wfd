@@ -54,11 +54,11 @@
             @foreach ($events as $event)
             <tr>
                 <td>{{$event->id}}</td>
-                <td><a href="{{ route('eventsMaster.show', $event->id) }}" style="color: black; text-decoration: none;">{{$event->title}}</a></td>
+                <td>{{$event->title}}</td>
                 <td>{{$event->date}}</td>
                 <td>{{$event->venue}}</td>
                 <td>{{$event->organizer->name}}</td>
-                <td>{{$event->description}}</td>
+                <td class="description">{{strip_tags($event->description)}}</td>
                 <td>
                 @foreach($event->tags as $tag)
                     <button class="tags">
@@ -66,7 +66,7 @@
                     </button>
                 @endforeach
                 </td>
-                <td>edit, trash</td>
+                <td><a href="{{ route('eventsMaster.edit', $event->id) }}" style="color: black; text-decoration: none;">edit</a>, trash</td>
             </tr>
             @endforeach
         </tbody>

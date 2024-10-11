@@ -15,10 +15,14 @@
 @endsection
 
 @section('content')
+
      
     <div class="container" >
+    @if (isset($event))
+    {{$event}}
+@endif
     <h1>{{ isset($event) ? 'Edit Event' : 'Add Event' }}</h1>
-    <form  action = "{{ isset($event) ? route('eventsMaster.update', ['event'=> $event->id]) : route('eventsMaster.store') }}"
+    <form  action = "{{ isset($event) ? route('eventsMaster.update', ['eventsMaster'=> $event->id]) : route('eventsMaster.store') }}"
         method = "POST">
         @csrf
         @if (isset($event))
@@ -37,7 +41,7 @@
                 @if ($errors->has('date'))"
                     <div class="text-danger">{{ $errors->first('date') }}</div>
                 @endif
-                <input value = "{{isset($event)? $event->date : ''}}" type="date" class="form-control" id="date" name = "date" placeholder="Start date">
+                <input value = "{{isset($event)? substr($event->date, 0, 10) : ''}}" type="date" class="form-control" id="date" name = "date" placeholder="Start date">
             </div>
         </div>
         <div class="form-row row">
@@ -96,7 +100,7 @@
                 <div class="text-danger">{{ $errors->first('tags') }}</div>
             @endif
             <div class="row">
-                <input class="tags" type="text" 
+                <input class="tags" type="text" name="tags" 
                     value="{{ isset($event) ? implode(',', $event->tags) : '' }}" 
                     data-role="tagsinput" />
             </div>
@@ -108,7 +112,11 @@
             @endif
             <textarea class="editor" id = "description" name="description">{{ isset($event) ? $event->description : '' }}</textarea>
         </div>
+        <br>
         <button type="submit" class="btn btn-primary">{{isset($event)? 'Save edit': 'Create'}}</button>
+        <br>
+        <br>
+        <br>
     </form>
     
 
@@ -135,9 +143,10 @@
             // Trim whitespace
             return textContent.trim();
         }
-        $(".description").each(function(){
+        $("#description").each(function(){
             $(this).html(removeHTMLTags($(this).html()));
         });
+        
 
         
         });

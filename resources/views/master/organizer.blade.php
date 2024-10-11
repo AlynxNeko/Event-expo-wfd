@@ -4,6 +4,19 @@
 <link rel = "stylesheet" href = "https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 <style>
 
+    .button {
+        background-color: white;
+        border-radius: 10px;
+        padding: 2px 10px;
+        color: black;
+        outline: 1px black solid;
+        width: 120px;
+        text-decoration: none;
+    }
+    .button:hover{
+        cursor: pointer;   
+        color: black;
+    }
 </style>
 @endsection
 
@@ -14,7 +27,7 @@
     <div class="row" style="align-items:center">
         <h1 class="col-2">Organizer</h1>
         <div class="col-2">
-            <button>+ Create</button>
+            <a class="button" href="{{ route('organizers.create') }}">+ Create</a>
         </div>
     </div>
     <div class="row mx-auto" style="width: fit-content;">
@@ -32,8 +45,9 @@
             <tr>
                 <td>{{$organizer->id}}</td>
                 <td><a href="{{ route('organizers.show', $organizer->id) }}" style="color: black; text-decoration: none;">{{$organizer->name}}</a></td>
-                <td>{{$organizer->description}}</td>
-                <td>edit, trash</td>
+                <td>{{strip_tags($organizer->description)}}</td>
+                <td><x-edit-button url="{{route('organizers.edit', $organizer->id)}}" />
+                <x-delete-button url="{{route( 'organizers.destroy', $organizer->id)}}" /></td>
             </tr>
             @endforeach
         </tbody>

@@ -10,6 +10,12 @@ class EventCategory extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name',
+        'created_at',
+        'updated_at',
+    ];
+
     
     public function events(): HasMany {
         return $this->hasMany(Event::class);

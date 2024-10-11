@@ -11,10 +11,13 @@ class DeleteButton extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public $url;
+
+    public function __construct($url)
     {
-        //
+        $this->url = $url;
     }
+
 
     /**
      * Get the view / contents that represent the component.

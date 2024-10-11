@@ -12,7 +12,7 @@ class OrganizerController extends Controller
      */
     public function index()
     {
-        $organizers = Organizer::orderBy('created_at', 'desc')->get();
+        $organizers = Organizer::orderBy('id', 'asc')->get();
         return view ('master.organizer', ['organizers'=> $organizers]);
     
     }

@@ -16,5 +16,8 @@ Route::resource('events', EventController::class);
 Route::resource('organizers', OrganizerController::class);
 Route::resource('eventsMaster', EventMasterController::class);
 Route::resource('categories', EventCategoryController::class);
+Route::put('/eventsMaster/{id}', [EventController::class, 'destroy'])->name('eventsMaster.destroy');
+Route::put('/organizers/{id}', [EventController::class, 'destroy'])->name('organizers.destroy');
+Route::put('/categories/{id}', [EventController::class, 'destroy'])->name('categories.destroy');
 // Route::get('events/organizer', [EventController::class, 'organizer'])->name('events.organizer');
 

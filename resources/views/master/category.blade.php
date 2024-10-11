@@ -4,17 +4,30 @@
 <link rel = "stylesheet" href = "https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css">
 <style>
 
+    .button {
+        background-color: white;
+        border-radius: 10px;
+        padding: 2px 10px;
+        color: black;
+        outline: 1px black solid;
+        width: 120px;
+        text-decoration: none;
+    }
+    .button:hover{
+        cursor: pointer;   
+        color: black;
+    }
 </style>
 @endsection
 
 @section(section: 'content')
-    <!-- {{$organizers}} -->
+    <!-- {{$categories}} -->
      
     <div class="container" >
     <div class="row" style="align-items:center">
-        <h1 class="col-2">Organizer</h1>
+        <h1 class="col-2">Category</h1>
         <div class="col-2">
-            <button>+ Create</button>
+            <a class="button" href="{{ route('categories.create') }}">+ Create</a>
         </div>
     </div>
     <div class="row mx-auto" style="width: fit-content;">
@@ -22,18 +35,19 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Organizer Name</th>
-                <th>About</th>
+                <th>Category Name</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
-            @foreach ($organizers as $organizer)
+            @foreach ($categories as $category)
             <tr>
-                <td>{{$organizer->id}}</td>
-                <td><a href="{{ route('organizers.show', $organizer->id) }}" style="color: black; text-decoration: none;">{{$organizer->name}}</a></td>
-                <td>{{$organizer->description}}</td>
-                <td>edit, trash</td>
+                <td>{{$category->id}}</td>
+                <td>{{$category->name}}</td>
+                <td>
+                    <x-edit-button url="{{route('categories.edit', $category->id)}}" />
+                    <x-delete-button url="{{route('categories.destroy', $category->id)}}" />
+                </td>
             </tr>
             @endforeach
         </tbody>
@@ -41,8 +55,6 @@
     </div>
     </div>
 @endsection
-
-<!-- <a href="{{ route('events.show', $organizer->id) }}" style="text-decoration: none; color:black"> -->
 
 @section('library-js')
 

@@ -9,8 +9,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Organizer extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'description',
+        'facebook_link',
+        'x_link',
+        'website_link',
+        'created_at',
+        'updated_at',
+    ];
     
     public function events(): HasMany {
         return $this->hasMany(Event::class);
     }
 }
+

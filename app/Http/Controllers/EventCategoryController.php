@@ -12,7 +12,7 @@ class EventCategoryController extends Controller
      */
     public function index()
     {
-        $categories = EventCategory::orderBy('created_at', 'desc')->get();
+        $categories = EventCategory::orderBy('id', 'asc')->get();
         return view ('master.category', ['categories'=> $categories]);
     }
 
@@ -34,7 +34,7 @@ class EventCategoryController extends Controller
         ]);
 
         EventCategory::create($request->all());
-        return redirect()->route('eventCategories.index')->with('success', 'Event category created successfully.');
+        return redirect()->route('categories.index')->with('success', 'Event category created successfully.');
     }
 
     /**
@@ -43,7 +43,7 @@ class EventCategoryController extends Controller
     public function show(string $id)
     {
         $category = EventCategory::find($id);
-        return view('master.detailCategory', compact('category'));
+        return view('master.crudCategory', compact('category'));
     }
 
     /**
@@ -51,8 +51,8 @@ class EventCategoryController extends Controller
      */
     public function edit(string $id)
     {
-        $eventCategory = EventCategory::findOrFail($id);
-        return view('eventCategory.edit', compact('eventCategory'));
+        $category = EventCategory::findOrFail($id);
+        return view('master.crudCategory', compact('category'));
     }
 
     /**
@@ -60,7 +60,13 @@ class EventCategoryController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+        ]);
+
+        $eventCategory = EventCategory::findOrFail($id);
+        $eventCategory->update($request->all());
+        return redirect()->route('categories.index')->with('success', 'Event category updated successfully.');
     }
 
     /**
@@ -68,7 +74,9 @@ class EventCategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $eventCategory = EventCategory::findOrFail($id);
+        $eventCategory->delete();
+        return redirect()->route('categories.index')->with('success', 'Event category deleted successfully.');
     }
 }
 
@@ -88,8 +96,8 @@ class EventCategoryController extends Controller
 //      */
 //     public function index()
 //     {
-//         $eventCategories = EventCategory::orderBy('name')->get();
-//         return view('eventCategory.index', ['eventCategories' => $eventCategories]);
+//         $categories = EventCategory::orderBy('name')->get();
+//         return view('eventCategory.index', ['categories' => $categories]);
 //     }
 
 //     /**
@@ -110,7 +118,7 @@ class EventCategoryController extends Controller
 //         ]);
 
 //         EventCategory::create($request->all());
-//         return redirect()->route('eventCategories.index')->with('success', 'Event category created successfully.');
+//         return redirect()->route('categories.index')->with('success', 'Event category created successfully.');
 //     }
 
 //     /**
@@ -142,7 +150,7 @@ class EventCategoryController extends Controller
 
 //         $eventCategory = EventCategory::findOrFail($id);
 //         $eventCategory->update($request->all());
-//         return redirect()->route('eventCategories.index')->with('success', 'Event category updated successfully.');
+//         return redirect()->route('categories.index')->with('success', 'Event category updated successfully.');
 //     }
 
 //     /**
@@ -152,6 +160,6 @@ class EventCategoryController extends Controller
 //     {
 //         $eventCategory = EventCategory::findOrFail($id);
 //         $eventCategory->delete();
-//         return redirect()->route('eventCategories.index')->with('success', 'Event category deleted successfully.');
+//         return redirect()->route('categories.index')->with('success', 'Event category deleted successfully.');
 //     }
 // }

@@ -18,9 +18,6 @@
 
      
     <div class="container" >
-    @if (isset($event))
-    {{$event}}
-@endif
     <h1>{{ isset($event) ? 'Edit Event' : 'Add Event' }}</h1>
     <form  action = "{{ isset($event) ? route('eventsMaster.update', ['eventsMaster'=> $event->id]) : route('eventsMaster.store') }}"
         method = "POST">
@@ -94,15 +91,17 @@
             @endif
             <input value = "{{isset($event)? $event->booking_url : ''}}" type="text" class="form-control" name = "booking_url" id="booking_url" placeholder="link...">
         </div>
-        <div class="form-group">
-            <label for="tags">Tags</label><br>
-            @if ($errors->has('tags'))
-                <div class="text-danger">{{ $errors->first('tags') }}</div>
-            @endif
-            <div class="row">
-                <input class="tags" type="text" name="tags" 
-                    value="{{ isset($event) ? implode(',', $event->tags) : '' }}" 
-                    data-role="tagsinput" />
+        <div class="row">
+            <div class="form-group">
+                <label for="tags">Tags</label><br>
+                @if ($errors->has('tags'))
+                    <div class="text-danger">{{ $errors->first('tags') }}</div>
+                @endif
+                <div class="row">
+                    <input class="tags" type="text" name="tags" 
+                        value="{{ isset($event) ? implode(',', $event->tags) : '' }}" 
+                        data-role="tagsinput" />
+                </div>
             </div>
         </div>
         <div class="form-group">
@@ -114,6 +113,7 @@
         </div>
         <br>
         <button type="submit" class="btn btn-primary">{{isset($event)? 'Save edit': 'Create'}}</button>
+        <a href="{{route('eventsMaster.index')}}" class="btn btn-primary">Cancel</a>
         <br>
         <br>
         <br>

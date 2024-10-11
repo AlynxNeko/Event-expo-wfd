@@ -16,7 +16,7 @@
     @foreach ($events as $event)
         <div class="card col-4 p-3" >
             <a href="{{ route('events.show', $event->id) }}" style="text-decoration: none; color:black">
-            <img src="..." class="card-img-top" alt="{{ $event->title }}">
+            <img src="{{ asset('photos/default.jpeg') }}" class="card-img-top" alt="{{ $event->title }}">
             <div class="card-body">
                 <h5 class="card-title">{{ $event->title }}</h5>
                 <p class="card-text">{{ $event->description }}</p>

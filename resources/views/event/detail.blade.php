@@ -24,8 +24,11 @@ $formattedDateTime = $date . ' - ' . $time;
     <!-- {{$event}} -->
      
     <div class="container" >
-        <h3>Expo</h3>
+        <h3>{{$event->eventCategory->name}}</h3>
         <h1>{{$event->title}}</h1>
+        <div class="row">
+            <img src="{{ asset('photos/default.jpeg') }}" class="card-img-top" style="width: 500px;" alt="{{ $event->title }}">
+        </div>
         <div class="row">
             <div class="col-4">
                 <h4>Organizer</h4>

@@ -16,7 +16,7 @@ class EventMasterController extends Controller
      */
     public function index()
     {
-        $events = Event::orderBy('date', 'desc')->get();
+        $events = Event::where('active', 1)->orderBy('id', 'asc')->get();
         return view ('master.event', ['events'=> $events]);
     }
 
@@ -146,6 +146,7 @@ class EventMasterController extends Controller
     {
         $organizer = Event::findOrFail($id);
         $organizer->delete();
-        return redirect()->route('eventMaster.index')->with('success', 'Event deleted successfully.');
+        return redirect()->route('eventsMaster.index')->with('success', 'Event deleted successfully.');
     }
+    
 }

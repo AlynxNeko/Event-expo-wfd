@@ -66,7 +66,8 @@
                     </button>
                 @endforeach
                 </td>
-                <td><x-edit-button url="{{route('eventsMaster.edit', $event->id)}}" /> trash</td>
+                <td><x-edit-button url="{{route('eventsMaster.edit', $event->id)}}" /> 
+                <x-delete-button url="{{route( 'eventsMaster.destroy', $event->id)}}" /></td>
             </tr>
             @endforeach
         </tbody>
